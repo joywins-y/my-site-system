@@ -39,6 +39,7 @@ module.exports = {
     // before: require('./mock/mock-server.js') // 表示发送的请求使用 mock-server 来进行处理
     proxy: {
       "/res": { target: "http://127.0.0.1:7001" },
+      "/api": { target: "http://127.0.0.1:7001" },
     },
   },
   configureWebpack: {
