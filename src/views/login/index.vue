@@ -1,53 +1,29 @@
 <template>
   <div class="login-container">
-    <el-form
-      ref="loginForm"
-      :model="loginForm"
-      :rules="loginRules"
-      class="login-form"
-      auto-complete="on"
-      label-position="left"
-    >
+    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on"
+      label-position="left">
       <div class="title-container">
         <div class="welcome">Welcome !</div>
         <h3 class="title">Personal Blog Management System</h3>
       </div>
 
       <!-- 管理员账号 -->
-      <el-form-item prop="username">
+      <el-form-item prop="loginId">
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
-        <el-input
-          ref="username"
-          v-model="loginForm.username"
-          placeholder="Username"
-          name="username"
-          type="text"
-          tabindex="1"
-          auto-complete="on"
-        />
+        <el-input ref="loginId" v-model="loginForm.loginId" placeholder="Username" name="loginId" type="text"
+          tabindex="1" auto-complete="on" />
       </el-form-item>
 
-      <el-form-item prop="password">
+      <el-form-item prop="loginPwd">
         <span class="svg-container">
           <svg-icon icon-class="password" />
         </span>
-        <el-input
-          :key="passwordType"
-          ref="password"
-          v-model="loginForm.password"
-          :type="passwordType"
-          placeholder="Password"
-          name="password"
-          tabindex="2"
-          auto-complete="on"
-          @keyup.enter.native="handleLogin"
-        />
+        <el-input :key="passwordType" ref="loginPwd" v-model="loginForm.loginPwd" :type="passwordType"
+          placeholder="Password" name="loginPwd" tabindex="2" auto-complete="on" @keyup.enter.native="handleLogin" />
         <span class="show-pwd" @click="showPwd">
-          <svg-icon
-            :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
-          />
+          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
       </el-form-item>
 
@@ -57,17 +33,10 @@
           <span class="svg-container">
             <svg-icon icon-class="nested" />
           </span>
-          <el-input
-            ref="captcha"
-            v-model="loginForm.captcha"
-            placeholder="Captcha"
-            name="captcha"
-            type="text"
-            tabindex="3"
-            auto-complete="on"
-          />
+          <el-input ref="captcha" v-model="loginForm.captcha" placeholder="Captcha" name="captcha" type="text"
+            tabindex="3" auto-complete="on" />
         </el-form-item>
-        <div class="captchaImg" @click="handleCaptcha" v-html="svg"></div>
+        <div class="captchaImg" @click="handleCaptcha" v-html="svg" />
       </div>
 
       <!-- 7 天内免登录 -->
@@ -75,124 +44,137 @@
         <el-checkbox v-model="loginForm.checked">7 天内免登录</el-checkbox>
       </div>
 
-      <el-button
-        :loading="loading"
-        type="primary"
-        style="width: 100%; margin-bottom: 30px"
-        @click.native.prevent="handleLogin"
-        >Login</el-button
-      >
+      <el-button :loading="loading" type="primary" style="width: 100%; margin-bottom: 30px"
+        @click.native.prevent="handleLogin">Login</el-button>
 
       <!-- <div class="tips">
-        <span style="margin-right:20px;">username: admin</span>
-        <span> password: any</span>
+        <span style="margin-right:20px;">loginId: admin</span>
+        <span> loginPwd: any</span>
       </div> -->
     </el-form>
   </div>
 </template>
 
 <script>
-import { validUsername } from "@/utils/validate";
-import { getCaptcha } from "@/api/captcha";
+import { validLoginId } from '@/utils/validate'
+import { getCaptcha } from '@/api/captcha'
 
 export default {
-  name: "Login",
+  name: 'Login',
   data() {
-    const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
-        callback(new Error("Please enter the correct user name"));
+    const validateLoginId = (rule, value, callback) => {
+      if (!validLoginId(value)) {
+        callback(new Error('Please enter the correct user name'))
       } else {
-        callback();
+        callback()
       }
-    };
+    }
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
-        callback(new Error("The password can not be less than 6 digits"));
+        callback(new Error('The password can not be less than 6 digits'))
       } else {
-        callback();
+        callback()
       }
-    };
+    }
     const validateCaptcha = (rule, value, callback) => {
       if (value.length < 4) {
-        callback(new Error("Please enter verification code"));
+        callback(new Error('Please enter verification code'))
+      } else {
+        callback()
       }
-    };
+    }
     return {
       loginForm: {
-        username: "admin",
-        password: "111111",
-        captcha: "",
-        checked: true,
+        loginId: 'admin',
+        loginPwd: '111111',
+        captcha: '',
+        checked: true
       },
       loginRules: {
-        username: [
-          { required: true, trigger: "blur", validator: validateUsername },
+        loginId: [
+          { required: true, trigger: 'blur', validator: validateLoginId }
         ],
-        password: [
-          { required: true, trigger: "blur", validator: validatePassword },
+        loginPwd: [
+          { required: true, trigger: 'blur', validator: validatePassword }
           // { min: 6, max: 16, message: "长度需要在6-16个字符之间", trigger: 'blur' },
         ],
         captcha: [
-          { required: true, trigger: "blur", validator: validateCaptcha },
-        ],
+          { required: true, trigger: 'blur', validator: validateCaptcha }
+        ]
       },
       loading: false,
-      passwordType: "password",
+      passwordType: 'password',
       redirect: undefined,
-      svg: "", // 用于保存验证码
-    };
+      svg: '' // 用于保存验证码
+    }
   },
   watch: {
     $route: {
       handler: function (route) {
-        this.redirect = route.query && route.query.redirect;
+        this.redirect = route.query && route.query.redirect
       },
-      immediate: true,
-    },
+      immediate: true
+    }
   },
   created() {
     // 初始时先加载验证码
-    this.handleCaptcha();
+    this.handleCaptcha()
   },
   methods: {
     showPwd() {
-      if (this.passwordType === "password") {
-        this.passwordType = "";
+      if (this.passwordType === 'password') {
+        this.passwordType = ''
       } else {
-        this.passwordType = "password";
+        this.passwordType = 'password'
       }
       this.$nextTick(() => {
-        this.$refs.password.focus();
-      });
+        this.$refs.loginPwd.focus()
+      })
     },
     /** 登录 */
     handleLogin() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          this.loading = true;
+          this.loading = true
+          if (this.loginForm.checked) {
+            this.loginForm.remember = 7
+          }
+          console.log(this.loginForm);
           this.$store
-            .dispatch("user/login", this.loginForm)
+            .dispatch('user/login', this.loginForm)
             .then(() => {
-              this.$router.push({ path: this.redirect || "/" });
-              this.loading = false;
+              console.log('=========');
+              this.$router.push({ path: this.redirect || '/' })
+              this.loading = false
             })
-            .catch(() => {
+            .catch((res) => {
+              // this.loading = false;
+              console.log(res);
+              if (typeof res === 'string') { // 验证码错误
+                console.log('验证码错误')
+                this.$message.error('验证码错误')
+              } else { // 账号密码错误
+                console.log('账号密码错误')
+                this.$message.error('账号密码错误')
+              }
+              this.handleCaptcha();
               this.loading = false;
-            });
+              // this.loginForm.captcha = "";
+            })
         } else {
-          console.log("error submit!!");
-          return false;
+          console.log('error submit!!')
+          return false
         }
-      });
+      })
     },
     /** 获取验证码 */
     handleCaptcha() {
       getCaptcha().then((res) => {
-        this.svg = res;
-      });
-    },
-  },
-};
+        this.svg = res
+      })
+    }
+  }
+}
 </script>
 
 <style lang="scss">
