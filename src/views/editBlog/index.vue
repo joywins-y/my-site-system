@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    Setting
+    Edit Blog
   </div>
 </template>
 
@@ -10,6 +10,6 @@ export default {
 }
 </script>
 
-<style>
+  <style>
 
-</style>
+  </style>

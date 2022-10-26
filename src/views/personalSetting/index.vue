@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    Setting
+    PersonalSetting
   </div>
 </template>
 

@@ -139,27 +139,21 @@ export default {
           if (this.loginForm.checked) {
             this.loginForm.remember = 7
           }
-          console.log(this.loginForm);
           this.$store
             .dispatch('user/login', this.loginForm)
             .then(() => {
-              console.log('=========');
               this.$router.push({ path: this.redirect || '/' })
               this.loading = false
             })
             .catch((res) => {
-              // this.loading = false;
-              console.log(res);
               if (typeof res === 'string') { // 验证码错误
-                console.log('验证码错误')
                 this.$message.error('验证码错误')
               } else { // 账号密码错误
-                console.log('账号密码错误')
                 this.$message.error('账号密码错误')
               }
-              this.handleCaptcha();
-              this.loading = false;
-              // this.loginForm.captcha = "";
+              this.handleCaptcha()
+              this.loading = false
+              this.loginForm.captcha = ''
             })
         } else {
           console.log('error submit!!')

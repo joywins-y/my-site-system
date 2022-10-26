@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    添加文章
+    Banner
   </div>
 </template>
 
