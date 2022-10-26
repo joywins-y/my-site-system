@@ -1,5 +1,6 @@
 import request from '@/utils/request'
 
+/** 登录 */
 export function login(data) {
   return request({
     url: '/api/admin/login',
@@ -8,17 +9,10 @@ export function login(data) {
   })
 }
 
-export function getInfo(token) {
+/** 恢复登录状态 */
+export function getInfo() {
   return request({
-    url: '/api/admin/info',
-    method: 'get',
-    params: { token }
-  })
-}
-
-export function logout() {
-  return request({
-    url: '/api/admin/logout',
-    method: 'post'
+    url: '/api/admin/whoami',
+    method: 'get'
   })
 }
