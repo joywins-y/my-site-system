@@ -48,26 +48,26 @@ export default [
     meta: { title: '文章管理', icon: 'el-icon-document' },
     children: [
       {
-        path: '/blogList',
+        path: '/blog/blogList',
         name: 'BlogList',
         component: () => import('@/views/blogList/index'),
         meta: { title: '文章列表', icon: 'el-icon-s-order', auth: true }
       },
       {
-        path: '/blogType',
+        path: '/blog/blogType',
         name: 'BlogType',
         component: () => import('@/views/blogType/index'),
         meta: { title: '文章分类', icon: 'el-icon-menu', auth: true }
       },
       {
-        path: '/addBlog',
+        path: '/blog/addBlog',
         name: 'AddBlog',
         component: () => import('@/views/addBlog/index'),
         meta: { title: '添加文章', icon: 'el-icon-circle-plus', auth: true }
       },
       {
-        path: '/editBlog/:id',
-        name: 'editBlog',
+        path: '/blog/editBlog/:id',
+        name: 'EditBlog',
         hidden: true,
         component: () => import('@/views/editBlog/index'),
         meta: { title: '编辑文章', icon: 'el-icon-circle-plus', auth: true }

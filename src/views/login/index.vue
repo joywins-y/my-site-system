@@ -1,7 +1,13 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on"
-      label-position="left">
+    <el-form
+      ref="loginForm"
+      :model="loginForm"
+      :rules="loginRules"
+      class="login-form"
+      auto-complete="on"
+      label-position="left"
+    >
       <div class="title-container">
         <div class="welcome">Welcome !</div>
         <h3 class="title">Personal Blog Management System</h3>
@@ -12,16 +18,32 @@
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
-        <el-input ref="loginId" v-model="loginForm.loginId" placeholder="Username" name="loginId" type="text"
-          tabindex="1" auto-complete="on" />
+        <el-input
+          ref="loginId"
+          v-model="loginForm.loginId"
+          placeholder="Username"
+          name="loginId"
+          type="text"
+          tabindex="1"
+          auto-complete="on"
+        />
       </el-form-item>
 
       <el-form-item prop="loginPwd">
         <span class="svg-container">
           <svg-icon icon-class="password" />
         </span>
-        <el-input :key="passwordType" ref="loginPwd" v-model="loginForm.loginPwd" :type="passwordType"
-          placeholder="Password" name="loginPwd" tabindex="2" auto-complete="on" @keyup.enter.native="handleLogin" />
+        <el-input
+          :key="passwordType"
+          ref="loginPwd"
+          v-model="loginForm.loginPwd"
+          :type="passwordType"
+          placeholder="Password"
+          name="loginPwd"
+          tabindex="2"
+          auto-complete="on"
+          @keyup.enter.native="handleLogin"
+        />
         <span class="show-pwd" @click="showPwd">
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
@@ -33,8 +55,15 @@
           <span class="svg-container">
             <svg-icon icon-class="nested" />
           </span>
-          <el-input ref="captcha" v-model="loginForm.captcha" placeholder="Captcha" name="captcha" type="text"
-            tabindex="3" auto-complete="on" />
+          <el-input
+            ref="captcha"
+            v-model="loginForm.captcha"
+            placeholder="Captcha"
+            name="captcha"
+            type="text"
+            tabindex="3"
+            auto-complete="on"
+          />
         </el-form-item>
         <div class="captchaImg" @click="handleCaptcha" v-html="svg" />
       </div>
@@ -44,8 +73,12 @@
         <el-checkbox v-model="loginForm.checked">7 天内免登录</el-checkbox>
       </div>
 
-      <el-button :loading="loading" type="primary" style="width: 100%; margin-bottom: 30px"
-        @click.native.prevent="handleLogin">Login</el-button>
+      <el-button
+        :loading="loading"
+        type="primary"
+        style="width: 100%; margin-bottom: 30px"
+        @click.native.prevent="handleLogin"
+      >Login</el-button>
 
       <!-- <div class="tips">
         <span style="margin-right:20px;">loginId: admin</span>
@@ -110,7 +143,7 @@ export default {
   },
   watch: {
     $route: {
-      handler: function (route) {
+      handler: function(route) {
         this.redirect = route.query && route.query.redirect
       },
       immediate: true
