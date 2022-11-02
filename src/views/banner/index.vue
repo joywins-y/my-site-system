@@ -1,5 +1,5 @@
 <template>
-  <div class="banner-container">
+  <div class="app-container">
     <!-- 数据表格 -->
     <el-table :data="data" style="width: 100%;">
       <el-table-column type="index" label="序号" width="100" align="center" />

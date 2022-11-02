@@ -37,3 +37,8 @@ export function addBlog(params) {
     data: params
   })
 }
+
+/** 搜索文章 */
+export function searchBlog(id) {
+  return request.get(`/api/blog/${id}`)
+}

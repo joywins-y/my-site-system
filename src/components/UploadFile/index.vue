@@ -1,5 +1,5 @@
 <template>
-  <div class="upload-container">
+  <div>
     <div class="block">{{ title }}</div>
     <el-upload
       class="avatar-uploader"
@@ -60,37 +60,35 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.upload-container {
-    .block {
-        margin: 16px 0;
-        font-weight: 100;
-    }
+.block {
+  margin: 16px 0;
+  font-weight: 100;
+}
 
-    .avatar-uploader .el-upload {
-        border: 1px dashed #d9d9d9;
-        border-radius: 6px;
-        position: relative;
-        overflow: hidden;
-        cursor: pointer;
+.avatar-uploader .el-upload {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
 
-        &:hover {
-            border-color: #409EFF;
-        }
-    }
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
 
-    .avatar-uploader-icon {
-        font-size: 28px;
-        color: #8c939d;
-        width: 178px;
-        height: 178px;
-        line-height: 178px;
-        text-align: center;
-    }
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+}
 
-    .avatar {
-        width: 178px;
-        height: 100%;
-        display: block;
-    }
+.avatar {
+  width: 178px;
+  height: 100%;
+  display: block;
 }
 </style>

@@ -1,15 +1,20 @@
 <template>
-  <div class="">
-    添加文章
+  <div class="app-container">
+    <EditBlog mode="add" />
   </div>
 </template>
 
 <script>
-export default {
+import EditBlog from '@/components/EditBlog'
 
+export default {
+  components: {
+    EditBlog
+  },
+  props: {}
 }
 </script>
 
-<style>
+<style scoped lang="scss">
 
 </style>

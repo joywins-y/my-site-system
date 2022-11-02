@@ -1,5 +1,5 @@
 <template>
-  <div class="blog-list-container">
+  <div class="app-container">
     <el-table :data="data" style="width: 100%;">
       <el-table-column prop="date" label="序号" width="60" align="center">
         <template slot-scope="scope">{{ scope.$index + (currentPage - 1) * eachPage + 1 }}</template>
@@ -8,8 +8,8 @@
       <el-table-column prop="title" label="文章名称">
         <template slot-scope="scope">
           <el-popover placement="top-start" title="文章预览图" width="230" trigger="hover">
-            <el-image style="width: 200px" :src="scope.row.thumb" fit="contain" :preview-src-list="imgs"></el-image>
-            <a href="#" target="_blank" @click="goToTitle(scope.row)" slot="reference">{{ scope.row.title }}</a>
+            <el-image style="width: 200px" :src="scope.row.thumb" fit="contain" :preview-src-list="imgs" />
+            <a slot="reference" href="#" target="_blank" @click="goToTitle(scope.row)">{{ scope.row.title }}</a>
           </el-popover>
         </template>
       </el-table-column>
@@ -28,7 +28,7 @@
 
       <el-table-column prop="createDate" label="创建日期" />
 
-      <el-table-column label="操作">
+      <el-table-column label="操作" width="100px">
         <template slot-scope="scope">
           <el-tooltip class="item" effect="dark" content="编辑" placement="top" :hide-after="2000">
             <el-button type="primary" icon="el-icon-edit" circle size="mini" @click="handleEdit(scope.row)" />
@@ -42,17 +42,26 @@
     </el-table>
 
     <!-- 分页 -->
-    <el-pagination style="margin-top: 30px" background :page-size="eachPage" :page-sizes="[5, 10, 20]" :total="total"
-      :current-page.sync="pagerCurPage" @size-change="changeSize" @current-change="changeCurrent"
-      @prev-click="handlePrevClick" @next-click="handleNextClick" layout="total, prev, pager, next, ->, sizes, jumper">
-    </el-pagination>
+    <el-pagination
+      style="margin-top: 30px"
+      background
+      :page-size="eachPage"
+      :page-sizes="[5, 10, 20]"
+      :total="total"
+      :current-page.sync="pagerCurPage"
+      layout="total, prev, pager, next, ->, sizes, jumper"
+      @size-change="changeSize"
+      @current-change="changeCurrent"
+      @prev-click="handlePrevClick"
+      @next-click="handleNextClick"
+    />
   </div>
 </template>
 
 <script>
 import { getBlogList, removeBlog } from '@/api/blog'
 import { formatDate } from '@/utils/tools'
-import { frontEnd_URL } from '@/utils/url';
+import { frontEnd_URL } from '@/utils/url'
 
 export default {
   props: {},
@@ -109,20 +118,20 @@ export default {
       })
     },
     changeSize(pageNum) {
-      this.eachPage = parseInt(pageNum);
-      this.currentPage = 1;
-      this.pagerCurPage = 1;
-      this.fetchData();
+      this.eachPage = parseInt(pageNum)
+      this.currentPage = 1
+      this.pagerCurPage = 1
+      this.fetchData()
     },
     changeCurrent(pageNum) {
-      this.currentPage = parseInt(pageNum);
-      this.fetchData();
+      this.currentPage = parseInt(pageNum)
+      this.fetchData()
     },
     handlePrevClick() {
-      this.currentPage -= 1;
+      this.currentPage -= 1
     },
     handleNextClick() {
-      this.currentPage += 1;
+      this.currentPage += 1
     }
   }
 }
