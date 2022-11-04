@@ -16,12 +16,12 @@ import DataAnalysis from './components/dataAnalysis.vue'
 
 export default {
   name: 'Dashboard',
+  components: { DataAnalysis },
   computed: {
     ...mapGetters([
       'name'
     ])
-  },
-  components: { DataAnalysis }
+  }
 }
 </script>
 

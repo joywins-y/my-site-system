@@ -2,7 +2,7 @@
   <div class="app-container">
     <!-- 新增分类 -->
     <div style="margin-top: 16px">
-      <el-input v-model="input" placeholder="请输入" class="input-with-select input">
+      <el-input v-model="input" placeholder="请输入要添加的分类，左边选择分类等级" class="input-with-select input">
         <el-select slot="prepend" v-model="select" placeholder="请选择" style="width: 100px;">
           <el-option label="1" value="1" />
           <el-option label="2" value="2" />
@@ -19,6 +19,10 @@
       <el-table-column type="index" label="序号" width="100" align="center" />
 
       <el-table-column prop="name" label="文章类型" />
+
+      <el-table-column prop="order" label="文章等级">
+        <template slot-scope="scope">{{ scope.row.order === null ? "未排序" : scope.row.order }}</template>
+      </el-table-column>
 
       <el-table-column prop="articleCount" label="文章数量" />
 
@@ -95,6 +99,8 @@ export default {
         addBlogType({ name: this.input, order: this.select }).then(() => {
           this.fetchData()
           this.$message.success('添加分类成功')
+          this.input = null
+          this.select = null
         })
       } else {
         this.$message.error('分类名称不能为空')

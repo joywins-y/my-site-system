@@ -113,7 +113,7 @@ export default {
     handleConfirm() {
       const arr = [...this.data]
       for (let i = 0; i < arr.length; i++) {
-        if (arr[i].id == this.form.id) {
+        if (arr[i].id === this.form.id) {
           arr[i] = this.form
         }
       }

@@ -1,6 +1,10 @@
 // 工具函数库
 
 export function formatDate(timestamp) {
+  console.log(typeof timestamp)
+  if (!timestamp || typeof timestamp !== 'number') {
+    return '-'
+  }
   var date = new Date(parseInt(timestamp))
 
   var year = date.getFullYear() // 年

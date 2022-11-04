@@ -16,17 +16,19 @@
 
       <el-table-column prop="description" label="文章描述" />
 
-      <el-table-column prop="scanNumber" label="浏览量" />
+      <el-table-column prop="scanNumber" label="浏览量" width="80" />
 
-      <el-table-column prop="commentNumber" label="评论数" />
+      <el-table-column prop="commentNumber" label="评论数" width="80" />
 
-      <el-table-column prop="cetagory" label="所属分类">
+      <el-table-column prop="cetagory" label="所属分类" width="100">
         <template slot-scope="scope">
           {{ scope.row.category === null ? "未分类" : scope.row.category.name }}
         </template>
       </el-table-column>
 
       <el-table-column prop="createDate" label="创建日期" />
+
+      <el-table-column prop="updateDate" label="最近更新" />
 
       <el-table-column label="操作" width="100px">
         <template slot-scope="scope">
@@ -86,6 +88,7 @@ export default {
         this.data = data.rows
         for (const i of this.data) {
           i.createDate = formatDate(i.createDate)
+          i.updateDate = formatDate(i.updateDate)
           this.imgs.push(i.thumb)
         }
         this.total = data.total
