@@ -30,6 +30,7 @@
 
       <el-table-column prop="updateDate" label="最近更新" />
 
+      <!-- 操作 -->
       <el-table-column label="操作" width="100px">
         <template slot-scope="scope">
           <el-tooltip class="item" effect="dark" content="编辑" placement="top" :hide-after="2000">
