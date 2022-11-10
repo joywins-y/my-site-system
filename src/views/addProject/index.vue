@@ -26,13 +26,14 @@
         </el-select>
       </el-form-item>
       <el-form-item align="right">
-        <el-button type="primary" plain @click="addProjectHandle">发布项目</el-button>
+        <el-button type="primary" plain @click="handleAddProject">发布项目</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
+import { addProject } from '@/api/projects'
 import UploadFile from '@/components/UploadFile'
 
 export default {
@@ -49,11 +50,29 @@ export default {
         order: 1
       }
     }
+  },
+  methods: {
+    handleAddProject() {
+      const obj = { ...this.form }
+      obj.description = obj.description.split(',')
+      obj.order = parseInt(obj.order)
+      addProject(obj).then(() => {
+        this.$router.push('/projectsList')
+        this.$message.success('项目发布成功')
+      })
+    }
+  },
+  beforeRouteLeave(to, from, next) {
+    const answer = window.confirm('真的要离开吗？您有未保存的更改！')
+    if (answer) {
+      next()
+    } else {
+      return false
+    }
   }
-
 }
 </script>
 
-<style>
+<style scoped lang="less">
 
 </style>

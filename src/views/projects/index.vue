@@ -79,6 +79,7 @@
 <script>
 import { getProject, removeProject } from '@/api/projects'
 import UploadFile from '@/components/UploadFile'
+import { server_URL } from '@/utils/url'
 
 export default {
   components: { UploadFile },
@@ -109,7 +110,10 @@ export default {
         this.loading = false
         this.data = data
         for (const i of this.data) {
-          this.srcList.push(i.thumb2)
+          if (i.thumb.indexOf('http') === -1) {
+            i.thumb = server_URL + i.thumb
+          }
+          this.srcList.push(i.thumb)
         }
       })
     },
