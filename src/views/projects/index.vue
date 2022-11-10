@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import { getProject, removeProject } from '@/api/projects'
+import { getProject, removeProject, updateProject } from '@/api/projects'
 import UploadFile from '@/components/UploadFile'
 import { server_URL } from '@/utils/url'
 
@@ -147,8 +147,7 @@ export default {
       const obj = { ...this.form }
       obj.description = this.form.description.split(',')
       obj.order = parseInt(this.form.order)
-
-      setProject(obj.id, obj).then(() => {
+      updateProject(obj.id, obj).then(() => {
         this.visible = false
         this.fetchData()
         this.$message.success('修改成功')

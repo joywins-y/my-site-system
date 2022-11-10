@@ -10,18 +10,12 @@
           <el-avatar shape="square" size="small" :src="scope.row.avatar" />
         </template>
       </el-table-column>
-      <el-table-column label="昵称" align="center" width="150">
-        <template slot-scope="scope">{{ scope.row.nickname }}</template>
-      </el-table-column>
+      <el-table-column label="昵称" align="center" width="150" prop="nickname" />
       <el-table-column label="评论文章" align="center" width="150">
         <template slot-scope="scope">{{ scope.row.blog.title }}</template>
       </el-table-column>
-      <el-table-column label="评论内容" align="center">
-        <template slot-scope="scope">{{ scope.row.content }}</template>
-      </el-table-column>
-      <el-table-column label="评论日期" align="center" width="230">
-        <template slot-scope="scope">{{ scope.row.createDate }}</template>
-      </el-table-column>
+      <el-table-column label="评论内容" align="center" prop="content" />
+      <el-table-column label="评论日期" align="center" width="230" prop="createDate" />
       <el-table-column label="操作" align="center" width="160" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-tooltip class="item" effect="dark" content="删除" placement="top" :hide-after="1500">

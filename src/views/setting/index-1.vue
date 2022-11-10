@@ -90,6 +90,51 @@
         <el-button @click="disabled = true">取消</el-button>
       </template>
     </div>
+    <!-- 弹出层 -->
+    <el-dialog title="请编辑信息" :visible.sync="visible" width="50%" top="5vh">
+      <el-form :model="form">
+        <el-form-item label="网站标题">
+          <el-input v-model="form2.siteTitle" />
+        </el-form-item>
+        <el-form-item label="邮箱">
+          <el-input v-model="form2.mail" />
+        </el-form-item>
+        <el-form-item label="备案号">
+          <el-input v-model="form2.icp" />
+        </el-form-item>
+        <el-form-item label="网站头像地址">
+          <!-- <el-input v-model="form2.avatar"></el-input> -->
+          <UploadFile v-model="form2.avatar" />
+        </el-form-item>
+        <el-form-item label="网站图标地址">
+          <el-input v-model="form2.favicon" />
+        </el-form-item>
+        <el-form-item label="github 名字">
+          <el-input v-model="form2.githubName" />
+        </el-form-item>
+        <el-form-item label="github 地址">
+          <el-input v-model="form2.github" />
+        </el-form-item>
+        <el-form-item label="QQ 号码">
+          <el-input v-model="form2.qq" />
+        </el-form-item>
+        <el-form-item label="QQ 二维码图片地址">
+          <!-- <el-input v-model="form2.qqQrCode"></el-input> -->
+          <UploadFile v-model="form2.qqQrCode" />
+        </el-form-item>
+        <el-form-item label="微信号">
+          <el-input v-model="form2.weixin" />
+        </el-form-item>
+        <el-form-item label="微信二维码图片地址">
+          <!-- <el-input v-model="form2.weixinQrCode"></el-input> -->
+          <UploadFile v-model="form2.weixinQrCode" />
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="visible = false">取 消</el-button>
+        <el-button type="primary" @click="handleConfirm">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -130,6 +175,7 @@ export default {
         weixin: '',
         weixinQrCode: ''
       },
+      visible: false,
       disabled: true
     }
   },
@@ -150,8 +196,14 @@ export default {
     },
     handleEdit() {
       this.disabled = false
+      // this.visible = true
     },
     handleConfirm() {
+      // setSetting(this.form2).then(() => {
+      //   this.visible = false;
+      //   this.fetchData();
+      //   this.$message.success('修改成功！');
+      // })
       setSetting(this.form).then(() => {
         this.fetchData()
         this.$message.success('修改成功！')
