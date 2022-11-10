@@ -10,7 +10,7 @@
       <el-form-item label="文章描述" prop="description">
         <el-input v-model="form.description" type="textarea" :rows="6" />
       </el-form-item>
-      <el-form-item label="文章封面">
+      <el-form-item label="文章封面" prop="thumb">
         <UploadFile v-model="form.thumb" />
       </el-form-item>
       <el-form-item label="选择分类" prop="category">

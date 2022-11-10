@@ -8,8 +8,8 @@
 import EditBlog from '@/components/EditBlog'
 
 export default {
-  props: {},
   components: { EditBlog },
+  props: {},
   beforeRouteLeave(to, from, next) {
     const answer = window.confirm('真的要离开吗？您有未保存的更改！')
     if (answer) {
