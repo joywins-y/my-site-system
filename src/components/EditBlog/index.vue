@@ -39,12 +39,10 @@ import { addBlog, searchBlog, updateBlog } from '@/api/blog'
 import UploadFile from '@/components/UploadFile'
 
 export default {
-  components: {
-    UploadFile,
-    Editor
-  },
+  components: { UploadFile, Editor },
   props: {
-    mode: { type: String, default: '' }
+    mode: { type: String, default: '' },
+    isHint: { type: Boolean }
   },
   data() {
     const validateContent = (rule, value, callback) => {
@@ -83,7 +81,6 @@ export default {
     /** 获取分类数组 */
     getBlogType().then(({ data }) => {
       this.blogTypes = data
-      console.log(data)
     })
     if (this.mode === 'edit') {
       this.id = this.$route.params.id
@@ -126,6 +123,7 @@ export default {
               this.$message.success('修改成功')
             })
           }
+          this.$emit('change', false);
         } else {
           console.log('error submit')
           this.$message.error('请填写所有内容')

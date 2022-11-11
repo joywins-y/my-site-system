@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-form :model="form">
+    <el-form :model="form" label-position="top" :rules="rules" ref="projectForm">
       <el-form-item label="项目名称" prop="name">
         <el-input v-model="form.name" placeholder="请输入项目的名称" />
       </el-form-item>
@@ -27,6 +27,7 @@
       </el-form-item>
       <el-form-item align="right">
         <el-button type="primary" plain @click="handleAddProject">发布项目</el-button>
+        <el-button plain @click="handleClear">清空</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -41,6 +42,8 @@ export default {
   props: {},
   data() {
     return {
+      isHint: true,
+      count: 0, // 计算编辑次数
       form: {
         name: '',
         description: '',
@@ -48,21 +51,53 @@ export default {
         github: '',
         thumb: '',
         order: 1
+      },
+      rules: {
+        name: [
+          { required: true, message: '请输入文章标题', trigger: 'blur' },
+          { min: 2, max: 100, message: '长度在 2-100 个字符', trigger: 'blur' }
+        ],
       }
+    }
+  },
+  watch: {
+    form: {
+      handler(val){
+        if(val){
+          this.count ++;
+          console.log(val, this.count);
+        }
+      },
+      deep: true, // 深层次
     }
   },
   methods: {
     handleAddProject() {
-      const obj = { ...this.form }
-      obj.description = obj.description.split(',')
-      obj.order = parseInt(obj.order)
-      addProject(obj).then(() => {
-        this.$router.push('/projectsList')
-        this.$message.success('项目发布成功')
+      this.$refs.projectForm.validate(valid => {
+        if (valid) {
+          const obj = { ...this.form }
+          obj.description = obj.description && obj.description.split(',')
+          obj.order = parseInt(obj.order)
+          addProject(obj).then(() => {
+            this.$router.push('/projectsList')
+            this.$message.success('项目发布成功')
+          });
+          this.isHint = false;
+        } else {
+          this.$message.error('请填写所有内容')
+          return false
+        }
       })
+    },
+    handleClear() {
+      this.form = {}
     }
   },
   beforeRouteLeave(to, from, next) {
+    if (!this.isHint) {
+      next();
+      return;
+    }
     const answer = window.confirm('真的要离开吗？您有未保存的更改！')
     if (answer) {
       next()

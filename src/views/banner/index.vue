@@ -98,7 +98,6 @@ export default {
   methods: {
     fetchData() {
       getBanner().then(res => {
-        console.log(res)
         this.data = res.data
         // for (const item of this.data) {
         //   item.minImg = server_URL + item.midImg;
