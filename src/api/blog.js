@@ -38,7 +38,7 @@ export function addBlog(params) {
   })
 }
 
-/** 搜索文章 */
-export function searchBlog(id) {
+/** 获取文章详情 */
+export function getBlogDetails(id) {
   return request.get(`/api/blog/${id}`)
 }

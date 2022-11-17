@@ -10,11 +10,17 @@
       <el-form-item label="文章描述" prop="description">
         <el-input v-model="form.description" type="textarea" :rows="6" />
       </el-form-item>
+      <el-form-item label="文章关键词（标签）" prop="keywords">
+        <el-select v-model="form.keywords" multiple filterable allow-create default-first-option placeholder="请选择文章标签" style="width: 600px;">
+          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+          </el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item label="文章封面" prop="thumb">
         <UploadFile v-model="form.thumb" />
       </el-form-item>
       <el-form-item label="选择分类" prop="category">
-        <el-select v-model="form.category" placeholder="请选择分类" @change="handleChange">
+        <el-select v-model="form.category" placeholder="请选择分类" @change="handleChange" style="width: 600px;">
           <el-option v-for="item in blogTypes" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
       </el-form-item>
@@ -35,7 +41,7 @@ import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight'
 import Prism from 'prismjs'
 
 import { getBlogType } from '@/api/blogType'
-import { addBlog, searchBlog, updateBlog } from '@/api/blog'
+import { addBlog, getBlogDetails, updateBlog } from '@/api/blog'
 import UploadFile from '@/components/UploadFile'
 
 export default {
@@ -61,7 +67,8 @@ export default {
         content: '',
         description: '',
         thumb: '',
-        category: ''
+        category: '',
+        keywords: '',
       },
       rules: {
         title: [
@@ -74,7 +81,12 @@ export default {
       },
       btnText: '发布文章',
       blogTypes: [],
-      editorOptions: { language: 'zh-CN', plugins: [colorSyntax, [codeSyntaxHighlight, { highlighter: Prism }]] }
+      editorOptions: { language: 'zh-CN', plugins: [colorSyntax, [codeSyntaxHighlight, { highlighter: Prism }]] },
+      options: [
+        { value: 'HTML', label: 'HTML'}, 
+        { value: 'CSS', label: 'CSS'}, 
+        { value: 'JavaScript', label: 'JavaScript'}
+      ],
     }
   },
   created() {
@@ -84,7 +96,7 @@ export default {
     })
     if (this.mode === 'edit') {
       this.id = this.$route.params.id
-      searchBlog(this.id).then(({ data }) => {
+      getBlogDetails(this.id).then(({ data }) => {
         this.form = data
         this.form.category = data.category === null ? '' : data.category.id
         this.$refs.editor.invoke('setHTML', data.htmlContent)
@@ -105,6 +117,7 @@ export default {
           const obj = {
             title: this.form.title,
             description: this.form.description,
+            keywords: this.form.keywords,
             categoryId: this.form.category,
             thumb: this.form.thumb,
             toc: [],

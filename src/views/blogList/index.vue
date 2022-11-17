@@ -14,7 +14,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="description" label="文章描述" />
+      <el-table-column prop="description" label="文章描述" width="150" />
 
       <el-table-column prop="scanNumber" label="浏览量" width="80" />
 
