@@ -91,7 +91,7 @@ export default [
       {
         path: '/addProject',
         name: 'AddProject',
-        component: () => import('@/views/addProject/index'),
+        component: () => import('@/views/projects/add/index'),
         meta: { title: '添加项目', icon: 'el-icon-link', auth: true }
       }
     ]
