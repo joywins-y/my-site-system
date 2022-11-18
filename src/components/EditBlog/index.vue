@@ -11,7 +11,8 @@
         <el-input v-model="form.description" type="textarea" :rows="6" />
       </el-form-item>
       <el-form-item label="文章关键词（标签）" prop="keywords">
-        <el-select v-model="form.keywords" multiple filterable allow-create default-first-option placeholder="请选择文章标签" style="width: 600px;">
+        <el-select v-model="form.keywords" multiple filterable allow-create default-first-option placeholder="请选择文章标签"
+          style="width: 600px;">
           <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
         </el-select>
@@ -48,14 +49,13 @@ export default {
   components: { UploadFile, Editor },
   props: {
     mode: { type: String, default: '' },
-    isHint: { type: Boolean }
   },
   data() {
     const validateContent = (rule, value, callback) => {
       // 获取到的 html 是有值的，可能得到 <p><br /></p> 实际是空内容的情况
       // 判断 markdown 是否为空更准确
       const markdown = this.$refs.editor.invoke('getMarkdown')
-      if (markdown) {
+      if (!!markdown) {
         callback()
       } else {
         callback(new Error('请输入文章内容'))
@@ -83,10 +83,11 @@ export default {
       blogTypes: [],
       editorOptions: { language: 'zh-CN', plugins: [colorSyntax, [codeSyntaxHighlight, { highlighter: Prism }]] },
       options: [
-        { value: 'HTML', label: 'HTML'}, 
-        { value: 'CSS', label: 'CSS'}, 
-        { value: 'JavaScript', label: 'JavaScript'}
+        { value: 'HTML', label: 'HTML' },
+        { value: 'CSS', label: 'CSS' },
+        { value: 'JavaScript', label: 'JavaScript' }
       ],
+      updateCount: 0,
     }
   },
   created() {
@@ -102,6 +103,16 @@ export default {
         this.$refs.editor.invoke('setHTML', data.htmlContent)
       })
     }
+  },
+  watch: {
+    form: {
+      handler(val) {
+        if (val) {
+          this.updateCount++;
+        }
+      },
+      deep: true,
+    },
   },
   methods: {
     handleChange() {
@@ -124,6 +135,7 @@ export default {
             htmlContent: html,
             markdownContent: markdown
           }
+          this.updateCount = 0; // 点击保存按钮 不需要提示
           if (this.mode === 'add') { // 新增
             obj.createDate = new Date().getTime()
             addBlog(obj).then(() => {
@@ -136,7 +148,6 @@ export default {
               this.$message.success('修改成功')
             })
           }
-          this.$emit('change', false);
         } else {
           console.log('error submit')
           this.$message.error('请填写所有内容')
