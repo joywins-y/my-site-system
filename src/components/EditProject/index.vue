@@ -107,6 +107,17 @@ export default {
         handleCancel() {
 
         }
+    },
+    mounted() {
+        window.onbeforeunload = function (e) {
+            e = e || window.event;
+            // 兼容 IE8 和 Firefox 4 之前的版本
+            if (e) {
+                e.returnValue = "关闭提示";
+            }
+            // Chrome, Safari, Firefox 4+, Opera 12+ , IE 9+
+            return '关闭提示';
+        };
     }
 }
 </script>
