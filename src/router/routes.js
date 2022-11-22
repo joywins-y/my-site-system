@@ -45,13 +45,13 @@ export default [
     component: Layout,
     redirect: '/blog',
     name: 'Blog',
-    meta: { title: '文章管理', icon: 'el-icon-document' },
+    meta: { title: '文章管理', icon: 'el-icon-s-management' },
     children: [
       {
         path: '/blog/blogList',
         name: 'BlogList',
         component: () => import('@/views/blogList/index'),
-        meta: { title: '文章列表', icon: 'el-icon-s-order', auth: true }
+        meta: { title: '文章列表', icon: 'el-icon-document', auth: true }
       },
       {
         path: '/blog/blogType',
@@ -63,7 +63,7 @@ export default [
         path: '/blog/addBlog',
         name: 'AddBlog',
         component: () => import('@/views/addBlog/index'),
-        meta: { title: '添加文章', icon: 'el-icon-circle-plus', auth: true }
+        meta: { title: '添加文章', icon: 'el-icon-circle-plus-outline', auth: true }
       },
       {
         path: '/blog/editBlog/:id',
@@ -80,19 +80,19 @@ export default [
     component: Layout,
     redirect: '/projects',
     name: 'Projects',
-    meta: { title: '项目管理', icon: 'el-icon-suitcase' },
+    meta: { title: '项目管理', icon: 'el-icon-s-cooperation' },
     children: [
       {
         path: '/projectsList',
         name: 'ProjectsList',
         component: () => import('@/views/projects/index'),
-        meta: { title: '项目列表', icon: 'el-icon-notebook-1', auth: true }
+        meta: { title: '项目列表', icon: 'el-icon-folder-opened', auth: true }
       },
       {
         path: '/addProject',
         name: 'AddProject',
         component: () => import('@/views/projects/add/index'),
-        meta: { title: '添加项目', icon: 'el-icon-link', auth: true }
+        meta: { title: '添加项目', icon: 'el-icon-folder-add', auth: true }
       }
     ]
   },
@@ -106,7 +106,7 @@ export default [
         component: () => import('@/views/comment/index'),
         meta: {
           title: '评论管理',
-          icon: 'el-icon-chat-line-round',
+          icon: 'el-icon-s-comment',
           auth: true
         }
       }
@@ -120,7 +120,7 @@ export default [
         path: 'index',
         name: 'Message',
         component: () => import('@/views/message/index'),
-        meta: { title: '留言板', icon: 'el-icon-copy-document', auth: true }
+        meta: { title: '留言板', icon: 'el-icon-message-solid', auth: true }
       }
     ]
   },
