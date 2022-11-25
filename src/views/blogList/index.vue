@@ -5,7 +5,7 @@
         <template slot-scope="scope">{{ scope.$index + (currentPage - 1) * eachPage + 1 }}</template>
       </el-table-column>
 
-      <el-table-column prop="title" label="文章名称">
+      <el-table-column prop="title" label="文章名称" width="250">
         <template slot-scope="scope">
           <el-popover placement="top-start" title="文章预览图" width="230" trigger="hover">
             <el-image style="width: 200px" :src="scope.row.thumb" fit="contain" :preview-src-list="imgs" />
@@ -14,11 +14,11 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="description" label="文章描述" width="150" />
+      <el-table-column prop="description" label="文章描述" width="200" show-overflow-tooltip />
 
-      <el-table-column prop="scanNumber" label="浏览量" width="80" />
+      <el-table-column prop="scanNumber" label="浏览量" width="100" />
 
-      <el-table-column prop="commentNumber" label="评论数" width="80" />
+      <el-table-column prop="commentNumber" label="评论数" width="100" />
 
       <el-table-column prop="cetagory" label="所属分类" width="100">
         <template slot-scope="scope">
@@ -26,12 +26,12 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="createDate" label="创建日期" />
+      <el-table-column prop="createDate" label="创建日期" width="200" />
 
-      <el-table-column prop="updateDate" label="最近更新" />
+      <el-table-column prop="updateDate" label="最近更新" width="200" />
 
       <!-- 操作 -->
-      <el-table-column label="操作" width="100px">
+      <el-table-column label="操作" width="100">
         <template slot-scope="scope">
           <el-tooltip class="item" effect="dark" content="编辑" placement="top" :hide-after="2000">
             <el-button type="primary" icon="el-icon-edit" circle size="mini" @click="handleEdit(scope.row)" />
